@@ -5,7 +5,7 @@ from urllib3.exceptions import ReadTimeoutError, SSLError as UrllibSSLError
 from urllib3.util.retry import Retry
 import warnings
 import gzip
-from base64 import decodestring
+from base64 import decodebytes
 
 # sentinal value for `verify_certs`.
 # This is used to detect if a user is passing in a value for `verify_certs`
@@ -104,7 +104,7 @@ class Urllib3HttpConnection(Connection):
         if cloud_id:
             cluster_name, cloud_id = cloud_id.split(":")
             url, es_uuid, kibana_uuid = (
-                decodestring(cloud_id.encode("utf-8")).decode("utf-8").split("$")
+                decodebytes(cloud_id.encode("utf-8")).decode("utf-8").split("$")
             )
             host = "%s.%s" % (es_uuid, url)
             port = "9243"

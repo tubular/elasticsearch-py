@@ -1,6 +1,6 @@
 import time
 import warnings
-from base64 import decodestring
+from base64 import decodebytes
 
 try:
     import requests
@@ -63,7 +63,7 @@ class RequestsHttpConnection(Connection):
         if cloud_id:
             cluster_name, cloud_id = cloud_id.split(":")
             url, es_uuid, kibana_uuid = (
-                decodestring(cloud_id.encode("utf-8")).decode("utf-8").split("$")
+                decodebytes(cloud_id.encode("utf-8")).decode("utf-8").split("$")
             )
             host = "%s.%s" % (es_uuid, url)
             port = 9243
